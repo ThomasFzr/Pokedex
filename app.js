@@ -1,37 +1,26 @@
 const express = require('express');
-const sqlite3 = require('sqlite3');
+const { PrismaClient } = require('@prisma/client');
 
 const app = express();
 const port = 3000;
-
-// Connect to the SQLite database
-const db = new sqlite3.Database('pokemon_db.sqlite3', (err) => {
-  if (err) {
-    console.error('Error connecting to the database:', err.message);
-  } else {
-    console.log('Connected to the database');
-  }
-});
-
-// Define your routes 
+const prisma = new PrismaClient();
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-// Example route to query data from the database
-app.get('/pokemons', (req, res) => {
-  db.all('SELECT * FROM pokemon_v2_pokemon', (err, rows) => {
-    if (err) { 
-      console.error('Error querying the database:', err.message);
-      res.status(500).send('Internal Server Error');
-    } else {
-      res.json(rows);
-    }
-  });
+// Route pour récupérer tous les pokémons
+app.get('/pokemons', async (req, res) => {
+  try {
+    const pokemons = await prisma.pokemon_v2_pokemon.findMany();
+    res.json(pokemons);
+  } catch (error) {
+    console.error('Error querying the database:', error.message);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
-// Start the Express server
+// Démarrer le serveur Express
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
