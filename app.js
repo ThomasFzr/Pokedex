@@ -13,16 +13,16 @@ const db = new sqlite3.Database('pokemon_db.sqlite3', (err) => {
   }
 });
 
-// Define your routes
+// Define your routes 
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
 // Example route to query data from the database
-app.get('/pokemon', (req, res) => {
-  db.all('SELECT * FROM pokemon', (err, rows) => {
-    if (err) {
+app.get('/pokemons', (req, res) => {
+  db.all('SELECT * FROM pokemon_v2_pokemon', (err, rows) => {
+    if (err) { 
       console.error('Error querying the database:', err.message);
       res.status(500).send('Internal Server Error');
     } else {
