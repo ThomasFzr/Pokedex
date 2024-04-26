@@ -15,6 +15,9 @@ router.get('/pokemons', async (req, res) => {
   }
 });
 
+
+
+
 router.get('/pokemons/:name', async (req, res) => {
   const name = req.params.name;
   try {
@@ -23,9 +26,15 @@ router.get('/pokemons/:name', async (req, res) => {
         name: name
       }
     });
+
     if (!pokemon) {
       return res.status(404).json({ error: 'Pokemon not found' });
     }
+
+    const types = pokemon.pokemon_v2_pokemontype.map(pokemontype => pokemontype.pokemon_v2_type.name);
+    // delete pokemon.pokemon_v2_pokemontype;
+    pokemon.types = types;
+    
     res.json(pokemon);
   } catch (error) {
     console.error('Error querying the database:', error.message);
@@ -34,4 +43,11 @@ router.get('/pokemons/:name', async (req, res) => {
 });
 
 
-module.exports = router;
+
+
+
+
+
+
+
+    module.exports = router;
