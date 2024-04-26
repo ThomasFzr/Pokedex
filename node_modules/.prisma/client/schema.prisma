@@ -43,12 +43,12 @@ model auth_user {
   id                         Int                          @id @default(autoincrement())
   password                   String
   last_login                 DateTime?
-  is_superuser               Unsupported("bool")
+  is_superuser               Boolean
   username                   String                       @unique(map: "sqlite_autoindex_auth_user_1")
   last_name                  String
   email                      String
-  is_staff                   Unsupported("bool")
-  is_active                  Unsupported("bool")
+  is_staff                   Boolean
+  is_active                  Boolean
   date_joined                DateTime
   first_name                 String
   auth_user_groups           auth_user_groups[]
@@ -129,7 +129,7 @@ model django_site {
 
 model pokemon_v2_ability {
   id                            Int                             @id @default(autoincrement())
-  is_main_series                Unsupported("bool")
+  is_main_series                Boolean
   generation_id                 Int?
   name                          String
   pokemon_v2_generation         pokemon_v2_generation?          @relation(fields: [generation_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -449,7 +449,7 @@ model pokemon_v2_encounterconditionname {
 
 model pokemon_v2_encounterconditionvalue {
   id                                     Int                                      @id @default(autoincrement())
-  is_default                             Unsupported("bool")
+  is_default                             Boolean
   encounter_condition_id                 Int?
   name                                   String
   pokemon_v2_encountercondition          pokemon_v2_encountercondition?           @relation(fields: [encounter_condition_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -837,7 +837,7 @@ model pokemon_v2_language {
   id                                                                                     Int                                       @id @default(autoincrement())
   iso3166                                                                                String
   name                                                                                   String
-  official                                                                               Unsupported("bool")
+  official                                                                               Boolean
   order                                                                                  Int?
   iso639                                                                                 String
   pokemon_v2_abilitychangeeffecttext                                                     pokemon_v2_abilitychangeeffecttext[]
@@ -1534,7 +1534,7 @@ model pokemon_v2_pokeathlonstatname {
 
 model pokemon_v2_pokedex {
   id                             Int                              @id @default(autoincrement())
-  is_main_series                 Unsupported("bool")
+  is_main_series                 Boolean
   region_id                      Int?
   name                           String
   pokemon_v2_region              pokemon_v2_region?               @relation(fields: [region_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -1589,7 +1589,7 @@ model pokemon_v2_pokemon {
   order                         Int?
   height                        Int?
   weight                        Int?
-  is_default                    Unsupported("bool")
+  is_default                    Boolean
   pokemon_species_id            Int?
   base_experience               Int?
   pokemon_v2_encounter          pokemon_v2_encounter[]
@@ -1612,7 +1612,7 @@ model pokemon_v2_pokemon {
 
 model pokemon_v2_pokemonability {
   id                 Int                 @id @default(autoincrement())
-  is_hidden          Unsupported("bool")
+  is_hidden          Boolean
   slot               Int
   ability_id         Int?
   pokemon_id         Int?
@@ -1625,7 +1625,7 @@ model pokemon_v2_pokemonability {
 
 model pokemon_v2_pokemonabilitypast {
   id                    Int                    @id @default(autoincrement())
-  is_hidden             Unsupported("bool")
+  is_hidden             Boolean
   slot                  Int
   ability_id            Int?
   generation_id         Int?
@@ -1700,8 +1700,8 @@ model pokemon_v2_pokemonevolution {
   min_happiness                                                                                       Int?
   min_affection                                                                                       Int?
   relative_physical_stats                                                                             Int?
-  needs_overworld_rain                                                                                Unsupported("bool")
-  turn_upside_down                                                                                    Unsupported("bool")
+  needs_overworld_rain                                                                                Boolean
+  turn_upside_down                                                                                    Boolean
   evolution_trigger_id                                                                                Int?
   evolved_species_id                                                                                  Int?
   gender_id                                                                                           Int?
@@ -1742,11 +1742,11 @@ model pokemon_v2_pokemonevolution {
 model pokemon_v2_pokemonform {
   id                               Int                                @id @default(autoincrement())
   order                            Int?
-  is_default                       Unsupported("bool")
-  is_battle_only                   Unsupported("bool")
+  is_default                       Boolean
+  is_battle_only                   Boolean
   version_group_id                 Int?
   pokemon_id                       Int?
-  is_mega                          Unsupported("bool")
+  is_mega                          Boolean
   form_order                       Int?
   form_name                        String
   name                             String
@@ -1907,18 +1907,18 @@ model pokemon_v2_pokemonspecies {
   gender_rate                                                                                           Int?
   capture_rate                                                                                          Int?
   base_happiness                                                                                        Int?
-  is_baby                                                                                               Unsupported("bool")
+  is_baby                                                                                               Boolean
   hatch_counter                                                                                         Int?
-  has_gender_differences                                                                                Unsupported("bool")
-  forms_switchable                                                                                      Unsupported("bool")
+  has_gender_differences                                                                                Boolean
+  forms_switchable                                                                                      Boolean
   evolution_chain_id                                                                                    Int?
   generation_id                                                                                         Int?
   growth_rate_id                                                                                        Int?
   pokemon_color_id                                                                                      Int?
   pokemon_habitat_id                                                                                    Int?
   pokemon_shape_id                                                                                      Int?
-  is_legendary                                                                                          Unsupported("bool")
-  is_mythical                                                                                           Unsupported("bool")
+  is_legendary                                                                                          Boolean
+  is_mythical                                                                                           Boolean
   evolves_from_species_id                                                                               Int?
   pokemon_v2_palpark                                                                                    pokemon_v2_palpark[]
   pokemon_v2_pokemon                                                                                    pokemon_v2_pokemon[]
@@ -2066,7 +2066,7 @@ model pokemon_v2_regionname {
 
 model pokemon_v2_stat {
   id                                                                     Int                             @id @default(autoincrement())
-  is_battle_only                                                         Unsupported("bool")
+  is_battle_only                                                         Boolean
   game_index                                                             Int
   move_damage_class_id                                                   Int?
   name                                                                   String
