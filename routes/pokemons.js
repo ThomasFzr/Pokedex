@@ -104,10 +104,44 @@ router.get('/pokemons/:name', async (req, res) => {
     const temp = pokemon.pokemon_v2_pokemonspecies.pokemon_v2_pokemonhabitat.name
     delete pokemon.pokemon_v2_pokemonspecies.pokemon_v2_pokemonhabitat
     pokemon.habitat = temp
-
-
     //a---------------------habitat-------------------------
 
+    //b---------------------desc-------------------------
+    const desc = await prisma.pokemon_v2_pokemonspeciesdescription.findFirst({
+      where : {
+        pokemon_species_id : pokemon.pokemon_species_id
+      }
+    })
+    if (desc) {
+      pokemon.description = desc.description
+    }else {
+      pokemon.description = desc
+    }
+    //b---------------------desc-------------------------
+
+    //c---------------------stats-------------------------
+    const stats_d = await prisma.pokemon_v2_pokemonstat.findMany({
+      where: {
+        pokemon_id: pokemon.id
+      },
+      include: {
+        pokemon_v2_stat: {
+          select: {
+            name: true
+          }
+        }
+      }
+    });
+    
+    const statsObject = stats_d.reduce((result, stat) => {
+      console.log(result)
+      result[stat.pokemon_v2_stat.name] = stat.base_stat;
+      return result;
+    }, {});
+    
+    pokemon.stats = statsObject;
+    
+    //c---------------------stats-------------------------
 
 
 
