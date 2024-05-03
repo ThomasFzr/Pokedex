@@ -1584,27 +1584,29 @@ model pokemon_v2_pokedexversiongroup {
 }
 
 model pokemon_v2_pokemon {
-  id                            Int                             @id @default(autoincrement())
-  name                          String
-  order                         Int?
-  height                        Int?
-  weight                        Int?
-  is_default                    Boolean
-  pokemon_species_id            Int?
-  base_experience               Int?
-  pokemon_v2_encounter          pokemon_v2_encounter[]
-  pokemon_v2_pokemonspecies     pokemon_v2_pokemonspecies?      @relation(fields: [pokemon_species_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  pokemon_v2_pokemonability     pokemon_v2_pokemonability[]
-  pokemon_v2_pokemonabilitypast pokemon_v2_pokemonabilitypast[]
-  pokemon_v2_pokemoncries       pokemon_v2_pokemoncries[]
-  pokemon_v2_pokemonform        pokemon_v2_pokemonform[]
-  pokemon_v2_pokemongameindex   pokemon_v2_pokemongameindex[]
-  pokemon_v2_pokemonitem        pokemon_v2_pokemonitem[]
-  pokemon_v2_pokemonmove        pokemon_v2_pokemonmove[]
-  pokemon_v2_pokemonsprites     pokemon_v2_pokemonsprites[]
-  pokemon_v2_pokemonstat        pokemon_v2_pokemonstat[]
-  pokemon_v2_pokemontype        pokemon_v2_pokemontype[]
-  pokemon_v2_pokemontypepast    pokemon_v2_pokemontypepast[]
+  id                                   Int                                    @id @default(autoincrement())
+  name                                 String
+  order                                Int?
+  height                               Int?
+  weight                               Int?
+  is_default                           Boolean
+  pokemon_species_id                   Int?
+  base_experience                      Int?
+  pokemon_v2_encounter                 pokemon_v2_encounter[]
+  pokemon_v2_pokemonspecies            pokemon_v2_pokemonspecies?             @relation(fields: [pokemon_species_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  pokemon_v2_pokemonability            pokemon_v2_pokemonability[]
+  pokemon_v2_pokemonabilitypast        pokemon_v2_pokemonabilitypast[]
+  pokemon_v2_pokemoncries              pokemon_v2_pokemoncries[]
+  pokemon_v2_pokemonform               pokemon_v2_pokemonform[]
+  pokemon_v2_pokemongameindex          pokemon_v2_pokemongameindex[]
+  pokemon_v2_pokemonitem               pokemon_v2_pokemonitem[]
+  pokemon_v2_pokemonmove               pokemon_v2_pokemonmove[]
+  pokemon_v2_pokemonsprites            pokemon_v2_pokemonsprites[]
+  pokemon_v2_pokemonstat               pokemon_v2_pokemonstat[]
+  pokemon_v2_pokemontype               pokemon_v2_pokemontype[]
+  pokemon_v2_pokemontypepast           pokemon_v2_pokemontypepast[]
+  pokemon_v2_pokemonevolution          pokemon_v2_pokemonevolution[]
+  pokemon_v2_pokemonspeciesdescription pokemon_v2_pokemonspeciesdescription[]
 
   @@index([pokemon_species_id], map: "pokemon_v2_pokemon_pokemon_species_id_e3dbafe1")
   @@index([name], map: "pokemon_v2_pokemon_name_b4719884")
@@ -1725,6 +1727,7 @@ model pokemon_v2_pokemonevolution {
   pokemon_v2_gender                                                                                   pokemon_v2_gender?           @relation(fields: [gender_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   pokemon_v2_pokemonspecies_pokemon_v2_pokemonevolution_evolved_species_idTopokemon_v2_pokemonspecies pokemon_v2_pokemonspecies?   @relation("pokemon_v2_pokemonevolution_evolved_species_idTopokemon_v2_pokemonspecies", fields: [evolved_species_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   pokemon_v2_evolutiontrigger                                                                         pokemon_v2_evolutiontrigger? @relation(fields: [evolution_trigger_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  pokemon_v2_pokemon                                                                                  pokemon_v2_pokemon?          @relation(fields: [evolved_species_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([location_id], map: "pokemon_v2_pokemonevolution_location_id_fb0e2aa2")
   @@index([held_item_id], map: "pokemon_v2_pokemonevolution_held_item_id_ef69a719")
@@ -1956,6 +1959,7 @@ model pokemon_v2_pokemonspeciesdescription {
   pokemon_species_id        Int?
   pokemon_v2_pokemonspecies pokemon_v2_pokemonspecies? @relation(fields: [pokemon_species_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   pokemon_v2_language       pokemon_v2_language?       @relation(fields: [language_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  pokemon_v2_pokemon        pokemon_v2_pokemon?        @relation(fields: [pokemon_species_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([pokemon_species_id], map: "pokemon_v2_pokemonspeciesdescription_pokemon_species_id_c62bce07")
   @@index([language_id], map: "pokemon_v2_pokemonspeciesdescription_language_id_75b5e267")
