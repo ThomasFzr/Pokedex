@@ -73,19 +73,16 @@ router.get('/pokemons/:name', async (req, res) => {
     const evolutions = await prisma.pokemon_v2_pokemonevolution.findMany({
       where: {
         id: pokemon.id
-      },
-      select: {
-        evolved_species_id: true
       }
     });
     const evolutionName = await prisma.pokemon_v2_pokemon.findFirst({
       where: {
-        id: evolutions.evolved_species_id
+        id: evolutions[0].evolved_species_id
       }
     })
     pokemon.evolution = {
-      name: evolutionName.name,
-      id: evolutionName.id
+      id : evolutionName.id,
+      name : evolutionName.name
     }
     //b---------------------evolution-------------------------
 
